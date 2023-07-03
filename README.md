@@ -21,9 +21,9 @@ By leveraging the insights from our analysis, we can gain a better understanding
 
 ### Datasets
 
-The raw datasets (apple and samsung) are provided from AppleWatch and GalaxyWatch subreddits in www.reddit.com through using Pushshift's API, which were about 2000 rows in 98 columns for each data set.
-Each raw dataset were used in EDA part for cleaning and exploring data and the number of columns were reduced to only 5 (featured engineered columns included). The names of final subreddit datasets after cleaning and feature engineering are apple watch and galaxy watch.
-Among above datasets, there is final clean dataset which is the combined of apple watch and galaxy watch datasets. This dataset were used for making models.
+The raw datasets (apple and samsung) are provided from AppleWatch and GalaxyWatch subreddits in www.reddit.com through using Pushshift's API, which were about 3500 rows in 98 columns for each data set.
+Each raw dataset were used in EDA part for cleaning and exploring data and the number of columns were reduced to only 5 (feature engineered columns included). The names of final subreddit datasets after cleaning and feature engineering are apple watch and galaxy watch.
+Among above datasets, there is a final clean dataset which is the combined of apple watch and galaxy watch datasets. This dataset were used for making models.
 The data dictionary contains all features, provided and engineered, that were used for EDA and making models.
 In the following you could find datasets:
 
