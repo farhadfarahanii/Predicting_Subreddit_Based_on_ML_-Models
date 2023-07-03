@@ -22,26 +22,24 @@ By leveraging the insights from our analysis, we can gain a better understanding
 ### Datasets
 
 The raw datasets (apple and samsung) are provided from AppleWatch and GalaxyWatch subreddits in www.reddit.com through using Pushshift's API, which were about 3500 rows in 98 columns for each data set.
-Each raw dataset were used in EDA part for cleaning and exploring data and the number of columns were reduced to only 5 (feature engineered columns included). The names of final subreddit datasets after cleaning and feature engineering are apple watch and galaxy watch.
-Among above datasets, there is a final clean dataset which is the combined of apple watch and galaxy watch datasets. This dataset were used for making models.
+Each raw dataset were used in EDA part for cleaning and exploring data and the number of columns were reduced to only 5 (feature engineered columns included).
+Among above datasets, there is a final clean dataset which is the combined of mentioned datasets. Final datset were used for making models.
 The data dictionary contains all features, provided and engineered, that were used for EDA and making models.
-In the following you could find datasets:
+In the following you could find datasets and the main varibales descriptions:
 
 * [`apple.csv`](./data/apple.csv)
 * [`samsung.csv`](./data/samsung.csv)
 * [`apple_watch.csv`](./data/apple_watch.csv)
 * [`galaxy_watch.csv`](./data/galaxy_watch.csv)
-* [`final.csv`](./data/final.csv)
-
----
-
-### Data Dictionary
+* [`final_dataset.csv`](./data/final_dataset.csv)
 
 |Feature|Type|Dataset|Description|
 |---|---|---|---|
-|authur|str|apple/samsung/apple_watch/galaxy_watch/final|author of post|
-|description|str|apple_watch/galaxy_watch/final|including title and description of post|
-|num_comments|int|apple/samsung/apple_watch/galaxy_watch/final| shows the number of comments that post got|
+|authur|str|apple/samsung/final_dataset|author of the post|
+|title|str|apple/samsung|title of each post|
+|selftext|str|apple/samsung|description of each post|
+|description|str|apple/samsung/final_dataset|including title and description (selftext) of each post|
+|des_word_count|int|final_dataset| shows the number of words in each post|
 
 ---
 
