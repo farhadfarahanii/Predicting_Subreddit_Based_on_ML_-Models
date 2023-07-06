@@ -155,7 +155,7 @@ Based on the accuracy scores obtained, it appears that the Extra Trees model per
 By evaluating the accuracy scores, we conclude that the Ensembled Model using the selected best models achieved a higher accuracy score of 0.9219, outperforming the model that included all models with an accuracy score of 0.9181.
 
 |Model|Accuracy Score|
-|---|---|---|
+|---|---|
 |Baseline|0.5341|
 |Logistic Regression|0.8945|
 |Naïve Bayes|0.9067|
@@ -174,7 +174,7 @@ The confusion matrix for the ensembled model provides a summary of the model's p
 
 
 |Metric|Score|
-|---|---|---|
+|---|---|
 |Accuracy|0.9219|
 |Precision|0.9383|
 |Sensitivity|0.8909|
