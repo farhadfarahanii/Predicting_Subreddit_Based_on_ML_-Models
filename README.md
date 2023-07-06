@@ -96,6 +96,7 @@ Below, we could see the distribution of posts in mentioned subreddits:
 
 **Above Plots show us that most of the descriptions for AppleWatches and Galaxy Watches are less that 100 word**
 
+&nbsp; &nbsp; &nbsp; &nbsp;
 
 ### Word Frequency Analysis
 
@@ -105,13 +106,13 @@ Word frequency analysis involves counting the occurrence of words in a text or d
 
 **Above plot shows us besides expected words like "watch", "galaxy", "phone", "google" and "samsung", other frequent words such as "app", "battery", "update" and "pro" are common topics of discussion within the Galaxy Watch subreddit community.**
 
-
-
+&nbsp; &nbsp; &nbsp; &nbsp;
 
 ![most_words_apple_watch](images/most_words_apple_watch.png)
 
 **Above plot shows us besides expected words like "watch", "apple", "applewatch" and "phone", other frequent words such as "app", "serries", "sleep", "ultra" and "band" and "battery" are common topics of discussion within the AppleWatch subreddit community.**
 
+&nbsp; &nbsp; &nbsp; &nbsp;
 
 ### Sentimental Analysis
 
@@ -134,8 +135,7 @@ The magnitude of the compound score represents the intensity of the sentiment. T
 
 **The plots indicate that AppleWatch posts have a more positive sentiment compared to Galaxy Watch posts.**
 
-
-
+&nbsp; &nbsp; &nbsp; &nbsp;
 
 ![subreddits_sentiment_distribution](images/subreddits_sentiment_distribution.png)
 
@@ -194,8 +194,7 @@ By evaluating the accuracy scores, we conclude that the Ensembled Model using th
 |SVM|0.9014|
 |Ensembled (Voting Classifier)|0.9219|
 
-
-
+&nbsp; &nbsp; &nbsp; &nbsp;
 
 **The Confusion Matrix:**
 
