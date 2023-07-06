@@ -4,6 +4,7 @@
 
 "Despite the abundance of online forums and social media platforms, categorizing user-generated content remains a challenge. However, recent advances in machine learning have enabled the creation of models that can predict the subject of a subreddit based on the data from the subreddit itself. Despite the success of these models, there is a need to explore their limitations, accuracy, and potential applications in various domains. Here in T-Mobile as a data scientist, my focus is on trying diffrenet machine learning algorithms to find the best model for predicting two different subreddits of our devices (Apple Watch and Samsung Galaxy Watch) based on subreddit contents."
 
+
 ### Background
 
 Online forums and social media platforms like Reddit have become valuable sources of information and feedback for businesses and individuals alike. With millions of users sharing their thoughts, opinions, and experiences on a wide range of topics, these platforms provide rich data that can be used to gain insights into customer needs and preferences. However, analyzing this data manually can be time-consuming and inefficient, especially when dealing with large volumes of posts and comments.
@@ -21,11 +22,7 @@ By leveraging the insights from our analysis, we can gain a better understanding
 
 ### Datasets
 
-The raw datasets (apple and samsung) are provided from AppleWatch and GalaxyWatch subreddits in www.reddit.com through using Pushshift's API, which were about 3500 rows in 98 columns for each data set.
-Each raw dataset were used in EDA part for cleaning and exploring data and the number of columns were reduced to only 5 (feature engineered columns included).
-Among above datasets, there is a final clean dataset which is the combined of mentioned datasets. Final datset were used for making models.
-The data dictionary contains all features, provided and engineered, that were used for EDA and making models.
-In the following you could find datasets and the main varibales descriptions:
+The project involved two raw datasets obtained from the AppleWatch and Galaxy Watch subreddits on www.reddit.com using Pushshift's API. Each dataset contained approximately 3,500 rows and 98 columns. During the exploratory data analysis (EDA) phase, the datasets underwent cleaning and data exploration. The number of columns was reduced to 5, including feature-engineered columns. The final clean dataset was created by combining the cleaned datasets for further analysis and model development.
 
 * [`apple.csv`](./data/apple.csv)
 * [`samsung.csv`](./data/samsung.csv)
@@ -41,106 +38,169 @@ In the following you could find datasets and the main varibales descriptions:
 |description|str|apple/samsung/final_dataset|including title and description (selftext) of each post|
 |des_word_count|int|final_dataset| shows the number of words in each post|
 
----
-
-### Data Cleaning and Exploratory Data Analysis (EDA)
-
-In this part I mostly tried to first make my final datasets for making models and also doing some exploratory analysis to see if I find some valuable results for marketing and sales departments.
-
-#### Cleaning and preprocessing
-
-> 1. For modeling, most valuable columns are descriptive columns which are in our project title and self tesxt, however, there were so many null values in self text, so I made another column "description" which is the combined column of title and self text.
-> 2. After checking data sets, finaly made a final ones for exploring and modeling which only include author, description, number of comments, subreddit name and description.
-
-#### Explratory Data Analysis
-
-> 1. Made a histogram of description word count to see the type of distribution and beside that, found that most of the descriptions in both galaxywatch and applewatch posts subreddits are less than 250 words.
-> 2. Made a histogram of number of comments for and found there were not much comments in any of them.
-> 3. Tried to find a relationship between lenght of description and number of comments, but after all, couldn't find a clear relationship.
-> 4. Filtered on users (author) with most number of description and it seemed that most of the descriptions are overaly positive in glaxywatch and in applewatch, the author with most number of description, talks more about type of applewatch bands.
-> 5. Instansiated Countvectorizer and fitted and transformed feuture (description column) and then made a dataframes out of that. Then sorted dataframes based on the most repeated words in those dataframes, here you could find a plot of those words.
-
-![GalaxyWatch_Posts_Most_Words](images/GalaxyWatch_Posts_Most_Words.png)
-![AppleWatch_Posts_Most_Words](images/AppleWatch_Posts_Most_Words.png)
 
 ---
 
-### Models
-In this part I made models with Naïve Bayes and Random Forest algorithms with CountVectorizer and TfidVectorizer transformers to predict my target (subreddit sunject). Also, used pipeline and GridSearch techniques for finding the best params and best scores and finaly plotted confusion matrix for evaluating models and plotted best feature importances to see which features(words) played the major role to build the models.
+### Exploratory Data Analysis (EDA), Preprocessing
 
-#### Naïve Bayes
+Performing exploratory data analysis (EDA) and preprocessing on the collected data from the AppleWatch and Galaxy Watch subreddits is a crucial step for gaining insights, understanding the data, and preparing it for further analysis and modeling.
 
-> 1. First I made a combined dataframe of applewatch and galaxywatch.
-> 2. Then labaled our target (subreddit) by mapping galaxywatch to 1 and applewatch to 0.
-> 3. Made a function for stemming words during making model.
-> 4. Trained and splitted data.
-> 6. The baseline accuracy is %50.
-> 5. For modelling, I used Pipeline to have MultinomialNB Naïve Bayes algorithm and CountVectorizer transformer with setting a range of params for GreadSearch over them. Did the same process one more time with TfidVectorizer Transformer.
-> 6. In the following the details of evaluation scores and also confusion matrix are visualized.
+In the preprocessing stage, we addressed data quality and consistency issues. This includes handling missing values, cleaning and standardizing the text data, and addressing duplicates or irrelevant content. We also performed feature engineering to extract meaningful features from the text data that can improve the predictive power of our models.
 
+The Following steps were taken in this part:
 
-|Model|Transformer|Metric|Metric Score|Interpretation|
-|---|---|---|---|---|
-|Naïve Bayes|CountVectorizer|Accuracy|%89|out of all subreddits, we %89 labeled them correctly|
-|Naïve Bayes|CountVectorizer|Precision|%89|of those we labeled as galaxywatch, %89 actually are galaxywatch subreddits|
-|Naïve Bayes|CountVectorizer|Sensitivity|%89|of all galaxywatch subreddits, %89 of those we predicted as galaxywatch subreddits|
-|Naïve Bayes|CountVectorizer|Specifity|%89|of all applewatch subreddits, %89 of those we predicted as applewatch subreddits|
-|Naïve Bayes|TfidVectorizer|Accuracy|%89|out of all subreddits, we %89 labeled them correctly|
-|Naïve Bayes|TfidVectorizer|Precision|%89|of those we labeled as galaxywatch subreddit, %89 actually are galaxywatch subreddits|
-|Naïve Bayes|TfidVectorizer|Sensitivity|%89|of all galaxywatch subreddits, %89 of those we predicted as galaxywatch subreddits|
-|Naïve Bayes|TfidVectorizer|Specifity|%89|of all applewatch subreddits, %89 of those we predicted as applewatch subreddits|
-
-![Naïve_Bayes_Count_Vectorizer_Confusion_Matrix](images/Naïve_Bayes_Count_Vectorizer_Confusion_Matrix.png)
-![Naïve_Bayes_tfid_Vectorizer_Confusion_Matrix](images/Naïve_Bayes_tfid_Vectorizer_Confusion_Matrix.png)
+> **Missing Values Handling and Feature Engineering:**
+>
+> **Drop Unuseful Columns**
+>
+> **Handling Duplicates**
+>
+> **Text Data Preprocessing**
+>
+> **Post Length Distribution**
+>
+> **Word Frequency Analysis**
+>
+> **Sentimental Analysis**
 
 
-#### Random Forest
+#### Post Length Distribution
 
-> 1. First I made a combined dataframe of applewatch and galaxywatch.
-> 2. Then labaled our target (subreddit) again by mapping galaxywatch to 1 and applewatch to 0.
-> 3. Made a function for stemming words during making model.
-> 4. Made another function to make a dataframe based on feuture names and importance scores, sorted by scores and finally plotting the result. 
-> 5. Trained and splitted data.
-> 6. The baseline accuracy is 50%.
-> 7. For modelling, I used Pipeline to have Random Forest algorithm and CountVectorizer transformer with setting a range of params for GreadSearch over them. Then, did the same process one more time with CountVectorizer Transformer.
-> 8. In the following the details of evaluation scores and also confusion matrix are visualized.
-> 9. Used function that was made for plotting the feature importances based on the values of best params of CountVectorizer and CountVectorizer transformers.
+The post length distribution for AppleWatch and Galaxy Watch subreddits provides insights into the length of posts submitted by users. It helps identify common post lengths and understand user engagement patterns. This information can be used to optimize content strategies, tailor responses to post length, and improve user interaction. Analyzing the distribution helps identify trends and preferences within each subreddit, guiding communication and content creation strategies.
+
+Below, we could see the distribution of posts in mentioned subreddits:
+
+![galaxy_watch_subreddit_distribution](images/most_words_galaxy_watch.png)
 
 
-|Model|Transformer|Metric|Metric Score|Interpretation|
-|---|---|---|---|---|
-|Random Forest|CountVectorizer|Accuracy|%88|out of all subreddits, we %88 labeled them correctly|
-|Random Forest|CountVectorizer|Precision|%90|of those we labeled as galaxywatch subreddits, %90 actually are galaxywatch subreddits|
-|Random Forest|CountVectorizer|Sensitivity|%86|of all galaxywatch subreddits, %86 of those we predicted as galaxywatch subreddits|
-|Random Forest|CountVectorizer|Specifity|%90|of all applewatch subreddits, %90 of those we predicted as applewatch subreddits|
-|Random Forest|TfidVectorizer|Accuracy|%88|out of all subreddits, we %88 labeled them correctly|
-|Random Forest|TfidVectorizer|Precision|%89|of those we labeled as galaxywatch subreddit, %89 actually are galaxywatch subreddits|
-|Random Forest|TfidVectorizer|Sensitivity|%88|of all galaxywatch subreddits, %88 of those we predicted as galaxywatch subreddits|
-Random Forest|TfidVectorizer|Specifity|%89|of all applewatch subreddits, %89 of those we predicted as applewatch subreddits|
+![apple_watch_subreddit_distribution](images/apple_watch_subreddit_distribution.png)
 
-![Random_Forest_Count_Vectorizer_Confusion_Matrix](images/Random_Forest_Count_Vectorizer_Confusion_Matrix.png)
-![Random_Forest_Tfid_Vectorizer_Confusion_Matrix](images/Random_Forest_Tfid_Vectorizer_Confusion_Matrix.png)
-![Random_Forest_Count_Vectorizer_Feature_Importance](images/Random_Forest_Count_Vectorizer_Feature_Importance.png)
-![Random_Forest_Tfid_Vectorizer_Feature_Importance](images/Random_Forest_Tfid_Vectorizer_Feature_Importance.png)
+
+**Above Plots show us that most of the descriptions for AppleWatches and Galaxy Watches are less that 100 word**
+
+
+#### Word Frequency Analysis
+
+Word frequency analysis involves counting the occurrence of words in a text or dataset. It helps identify the most frequently used words and their frequencies. This analysis is used to gain insights into the main themes, topics, and trends present in the data. It aids in understanding the language patterns, identifying key terms, and extracting meaningful information. Word frequency analysis is valuable for various applications, such as content analysis, sentiment analysis, topic modeling, and keyword optimization for SEO. It enables researchers and analysts to uncover patterns and make data-driven decisions based on the prominence of specific words in the dataset.
+
+![most_words_galaxy_watch](images/most_words_galaxy_watch.png)
+
+**Above plot shows us besides expected words like "watch", "galaxy", "phone", "google" and "samsung", other frequent words such as "app", "battery", "update" and "pro" are common topics of discussion within the Galaxy Watch subreddit community.**
+
+
+![most_words_apple_watch](images/most_words_apple_watch.png)
+
+**Above plot shows us besides expected words like "watch", "apple", "applewatch" and "phone", other frequent words such as "app", "serries", "sleep", "ultra" and "band" and "battery" are common topics of discussion within the AppleWatch subreddit community.**
+
+
+#### Sentimental Analysis
+
+In our project, sentiment analysis using VADER can help us gauge the sentiment of the posts made by users. By analyzing the sentiment, we can understand the overall opinion or emotional tone of the discussions within the subreddit. This information can be valuable for predicting trends, identifying user satisfaction or dissatisfaction, or understanding user preferences regarding Apple Watch and Galaxy Watch products.
+
+The compound score, generated by the VADER sentiment analyzer, represents the overall sentiment polarity of a given text. It takes into account the individual sentiment scores of the text's words and combines them to provide an overall sentiment score.
+
+The compound score ranges between -1 and 1, where:
+
+Scores above 0 indicate a positive sentiment.
+Scores below 0 indicate a negative sentiment.
+Scores around 0 indicate a neutral sentiment.
+
+The magnitude of the compound score represents the intensity of the sentiment. The closer the score is to -1 or 1, the stronger the sentiment expressed in the text.
+
+![subreddits_sentimental_analysis](images/subreddits_sentimental_analysis.png)
+
+**The plots indicate that AppleWatch posts have a more positive sentiment compared to Galaxy Watch posts.**
+
+
+![subreddits_sentiment_distribution](images/subreddits_sentiment_distribution.png)
+
+**The plots demonstrate a higher number of positive sentiments in Apple Watch posts compared to Galaxy Watch posts. However, it is important to note that the overall number of Apple Watch subreddits is greater than that of Galaxy Watch after preprocessing.**
+
+
+---
+
+### Machine Learning Models
+
+In this project, we conducted experiments using various machine learning models, including Logistic Regression, Naïve Bayes, Bagged Decision Tree, Random Forest, Extra Trees, Ada Boost, Gradient Boost, XGBoost, and SVM. We applied the CountVectorizer and TfidfVectorizer transformers to preprocess the data with different hyperparameters. Following evaluation, we determined the optimal parameters for each model in combination with the most effective transformer. The resulting accuracy scores are presented in the table below, showcasing the performance of each model.
+
+|Model|Transformer|Accuracy Score|
+|---|---|---|
+|Logistic Regression|TfidfVectorizer|0.8945|
+|Naïve Bayes|CountVectorizer|0.9067|
+|Bagged Decision Tree|CountVectorizer|0.8763|
+|Random Forest|TfidfVectorizer|0.8961|
+|Extra Trees|TfidfVectorizer|0.8945|
+|Ada Boost|TfidfVectorizer|0.8937|
+|Gradient Boost|CountVectorizer|0.8983|
+|XGBoost|CountVectorizer|0.8930|
+|SVM|TfidfVectorizer|0.9014|
+
+#### Feature Importances with Extra Trees
+
+Feature importances in Extra Trees represent the relative significance of each feature in predicting the target variable. They measure how much each feature reduces impurity during model construction. Analyzing feature importances helps identify influential factors and understand the relationships between features and the target. This information is valuable for feature selection, identifying key drivers, and gaining insights into the factors that impact model predictions. It aids in understanding the most important variables and their contributions to the overall predictive power of the model.
+
+
+![extra_trees_feature_importance](images/extra_trees_feature_importance.png)
+
+
+**The above plot shows that key features such as watch names, brands, series, and specific features like health have significant importance in predicting the subreddit classes for AppleWatch and Galaxy Watch.**
+
+
+### The Ensembled Model
+
+For ensemble modeling using the Voting Classifier, we followed two approaches. First, we ensembled all the models (except Bagged Decision Tree and AdaBoost) we have trained so far, regardless of their category. This approach combines the predictions of all models to make the final prediction. Alternatively, created a second ensemble model using only the selected best models from each category.
+
+Based on the accuracy scores obtained, it appears that the Extra Trees model performed the best among the decision tree models, while Gradient Boost performed the best among the boosting models. Therefore, for the second ensemble model, we focused on using the following models: **Logistic Regression**, **Naïve Bayes**, **Extra Trees**, **Gradient Boost**, and **SVM**.
+
+By evaluating the accuracy scores, we conclude that the Ensembled Model using the selected best models achieved a higher accuracy score of 0.9219, outperforming the model that included all models with an accuracy score of 0.9181.
+
+|Model|Accuracy Score|
+|---|---|---|
+|Baseline|0.5341|
+|Logistic Regression|0.8945|
+|Naïve Bayes|0.9067|
+|Random Forest|0.8961|
+|Extra Trees|0.8945|
+|Gradient Boost|0.8983|
+|SVM|0.9014|
+|Ensembled (Voting Classifier)|0.9219|
+
+
+**Confusion Matrix:** 
+The confusion matrix for the ensembled model provides a summary of the model's prediction accuracy and errors. It visualizes the number of correct and incorrect predictions for each class, enabling an assessment of the model's performance across different categories. Analyzing the confusion matrix helps identify patterns, evaluate classification accuracy, and guide improvements in the model's predictive capabilities.
+
+
+![ensemled_model_confusion_matrix](images/ensemled_model_confusion_matrix.png)
+
+
+|Metric|Score|
+|---|---|---|
+|Accuracy|0.9219|
+|Precision|0.9383|
+|Sensitivity|0.8909|
+|Specifity|0.9489|
+|F1|0.9140|
+
 
 ---
 
 ### Conclusions
 
-* We experimented with two most NLP transformers for collecting words from contents, including CountVectorizer and TfidVectorizer and After evaluating two models with those transformers, we found that the models scores are somehow the same, however I chose the Random Forest Algorithm with TfidVectorizer, achieving an accuracy of %88 on the test set and also I used it's feature importance to find out major features.
+* Collected raw datasets from AppleWatch and GalaxyWatch subreddits using the Pushshift API.
 
-* In addition to predicting the subreddit based on the content of the post, we also identified the most common words used by users when discussing the Apple Watch and Samsung Galaxy Watch. Our analysis revealed that the most common words used in the Apple Watch subreddit were "watch", "apple", "app", "series", "sleep", "ultra", "band" and "battery", while the most common words used in the Samsung Galaxy Watch subreddit were "watch", "galaxy", "app", "battery", "pro", "google", "update", and "face".
+* Conducted word frequency analysis to identify common words and themes in the posts.
 
-* Beside those common words in each subreddit, we also found which words in the combined dataset of those subreddits, played a main role in making our model.
+* Analyzed sentiment of the posts, revealing a more positive sentiment in Apple Watch posts compared to Galaxy Watch posts.
+Trained multiple classification models including Logistic Regression, Naïve Bayes, Random Forest, Extra Trees, Gradient Boost, XGBoost, and SVM.
+
+* Created an ensembled model using selected best models (Extra Trees, Gradient Boost, Logistic Regression, Naïve Bayes, and SVM) to improve subreddit prediction, achieved an accuracy of 0.9219.
 
 ---
 
 ### Recommendations
 
-* WE could consider to incorporate the most common words used in the Apple Watch and Samsung Galaxy Watch subreddits into our product development and marketing strategies. By understanding the language used by users when discussing these products.
+* WE could consider to incorporate the most common words used in the AppleWatch and Galaxy Watch subreddits into our product development and marketing strategies. By understanding the language used by users when discussing these products.
 
 * We should use insights gained from our analysis to inform our customer service strategies. By understanding the most common issues and concerns expressed by users in these subreddits, we can proactively address these concerns and provide better support to our customers.
-
-* The team of data scientists should experiment with different machine learning algorithms and transformer models to further improve the accuracy of subreddit prediction. In my project I used Naïve Bayes and Random Forest models, but there may be other models like  SVM and Extra Trees that perform even better for this task.
 
 * WE better Consider expanding the analysis of other subreddits and social media platforms related to our products and services (like rate plans, connectivity coverage quality and phone devices) to gain a more comprehensive understanding of customer needs and preferences.
